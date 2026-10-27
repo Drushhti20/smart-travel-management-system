@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#03111b" />
+      <stop offset="50%" stop-color="#061a29" />
+      <stop offset="100%" stop-color="#0a2438" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#skyGrad)" />
+  <rect width="1600" height="900" fill="url(#sunGlow)" />
+  <!-- Mountains Silhouette -->
+  <path d="M0 900 L200 620 L450 780 L800 480 L1150 720 L1400 560 L1600 700 L1600 900 Z" fill="#041522" opacity="0.8" />
+  <path d="M0 900 L350 700 L650 820 L1000 600 L1350 790 L1600 680 L1600 900 Z" fill="#020d15" opacity="0.95" />
+</svg>

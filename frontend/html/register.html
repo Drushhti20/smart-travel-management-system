@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your Beyond Horizons travel account.">
+  <title>Create account | Beyond Horizons</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Auth Script -->
+  <script src="/js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+
+  <!-- Top Brand Navigation -->
+  <header class="auth-top-header">
+    <div class="auth-container">
+      <a href="/" class="brand" aria-label="Beyond Horizons Homepage">
+        <span class="brand-mark">▲</span>
+        <span class="brand-bold">BEYOND</span>&nbsp;<span class="brand-light">HORIZONS</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Central Split-Screen Card -->
+  <main class="auth-main">
+    <div class="auth-split-card">
+      <!-- Left Panel: Coastal Scenic Visual -->
+      <section class="auth-card-visual auth-visual-register" aria-label="Coastal beach and cliff waterfall">
+        <div class="auth-visual-overlay"></div>
+        <div class="auth-visual-body">
+          <span class="auth-visual-tag">YOUR NEXT STORY STARTS HERE</span>
+          <h1 class="auth-visual-title">
+            The world is<br>
+            waiting for <span class="accent-cyan">you.</span>
+          </h1>
+          <p class="auth-visual-desc">
+            Save your plans, discover new places, and make every journey count.
+          </p>
+        </div>
+        <div class="auth-visual-foot">
+          <span class="star-icon">✦</span>
+          <span>Discover more. Travel further. Go beyond.</span>
+        </div>
+      </section>
+
+      <!-- Right Panel: Registration Form -->
+      <section class="auth-card-panel" aria-labelledby="register-title">
+        <a href="/" class="auth-back-link">← Back to home</a>
+
+        <div class="auth-form-content">
+          <span class="auth-form-tag">JOIN THE JOURNEY</span>
+          <h2 class="auth-form-title" id="register-title">Create your account</h2>
+          <p class="auth-form-subtitle">Start planning your next adventure with Beyond Horizons.</p>
+
+          <!-- Feedback message box -->
+          <div class="form-message-box" id="auth-alert" role="alert" aria-live="polite"></div>
+
+          <form id="register-form" novalidate>
+            <div class="form-group">
+              <label for="name" class="form-label">Full name</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                class="form-input" 
+                placeholder="e.g. Aanya Sharma" 
+                required 
+                minlength="2" 
+                maxlength="80"
+                autocomplete="name"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email address</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-input" 
+                placeholder="you@example.com" 
+                required 
+                autocomplete="email"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="password-input-wrap">
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  class="form-input" 
+                  placeholder="At least 8 characters" 
+                  required 
+                  minlength="8"
+                  autocomplete="new-password"
+                >
+                <button type="button" class="password-toggle-btn" data-toggle="password" aria-label="Show password">Show</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-password" class="form-label">Confirm password</label>
+              <div class="password-input-wrap">
+                <input 
+                  type="password" 
+                  id="confirm-password" 
+                  name="confirmPassword" 
+                  class="form-input" 
+                  placeholder="Enter password again" 
+                  required 
+                  minlength="8"
+                  autocomplete="new-password"
+                >
+                <button type="button" class="password-toggle-btn" data-toggle="confirm-password" aria-label="Show confirm password">Show</button>
+              </div>
+            </div>
+
+            <label class="checkbox-row" for="terms">
+              <input type="checkbox" id="terms" required>
+              <span>I agree to use this demo responsibly and provide accurate information.</span>
+            </label>
+
+            <button type="submit" class="btn btn-gradient-arrow" id="submit-btn">
+              <span>Create account</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </form>
+
+          <div class="auth-footer-prompt">
+            Already have an account? <a href="/login">Sign In</a>
+          </div>
+
+          <div class="auth-security-note">
+            ▣ Your password is securely hashed before storage.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+</body>
+</html>

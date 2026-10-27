@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in to Beyond Horizons — Smart Travel Management System.">
+  <title>Sign in | Beyond Horizons</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Auth Script -->
+  <script src="/js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+
+  <!-- Top Brand Navigation -->
+  <header class="auth-top-header">
+    <div class="auth-container">
+      <a href="/" class="brand" aria-label="Beyond Horizons Homepage">
+        <span class="brand-mark">▲</span>
+        <span class="brand-bold">BEYOND</span>&nbsp;<span class="brand-light">HORIZONS</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Central Split-Screen Card -->
+  <main class="auth-main">
+    <div class="auth-split-card">
+      <!-- Left Panel: Photographic Visual -->
+      <section class="auth-card-visual auth-visual-login" aria-label="Mountain landscape scenic preview">
+        <div class="auth-visual-overlay"></div>
+        <div class="auth-visual-body">
+          <span class="auth-visual-tag">WELCOME BACK, EXPLORER</span>
+          <h1 class="auth-visual-title">
+            Your next<br>
+            adventure is<br>
+            <span class="accent-cyan">closer than ever.</span>
+          </h1>
+          <p class="auth-visual-desc">
+            Pick up where you left off and keep your travel plans in one place.
+          </p>
+        </div>
+        <div class="auth-visual-foot">
+          <span class="star-icon">✦</span>
+          <span>The world is yours to explore.</span>
+        </div>
+      </section>
+
+      <!-- Right Panel: Login Form -->
+      <section class="auth-card-panel" aria-labelledby="login-title">
+        <a href="/" class="auth-back-link">← Back to home</a>
+
+        <div class="auth-form-content">
+          <span class="auth-form-tag">LET'S GET YOU THERE</span>
+          <h2 class="auth-form-title" id="login-title">Welcome back</h2>
+          <p class="auth-form-subtitle">Sign in to continue planning your journey.</p>
+
+          <!-- Feedback message -->
+          <div class="form-message-box" id="auth-alert" role="alert" aria-live="polite"></div>
+
+          <form id="login-form" novalidate>
+            <div class="form-group">
+              <label for="email" class="form-label">Email address</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-input" 
+                placeholder="you@example.com" 
+                required 
+                autocomplete="email"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="password-input-wrap">
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  class="form-input" 
+                  placeholder="Enter your password" 
+                  required 
+                  autocomplete="current-password"
+                >
+                <button type="button" class="password-toggle-btn" data-toggle="password" aria-label="Show password">Show</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gradient-arrow" id="submit-btn" style="margin-top: 10px;">
+              <span>Sign in</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </form>
+
+          <div class="auth-footer-prompt">
+            New to Beyond Horizons? <a href="/register">Create an account</a>
+          </div>
+
+          <div class="auth-security-note">
+            ▣ Sign-in is handled by your project backend.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+</body>
+</html>

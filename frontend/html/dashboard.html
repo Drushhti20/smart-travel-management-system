@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beyond Horizons — Personal Travel Management Dashboard.">
+  <title>Dashboard | Beyond Horizons</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Unified Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Dashboard Script -->
+  <script src="/js/dashboard.js" defer></script>
+</head>
+<body style="background-color: var(--bg-page);">
+
+  <!-- Dashboard Header -->
+  <header class="dash-header">
+    <div class="container dash-header-container">
+      <a href="/" class="brand" aria-label="Beyond Horizons Homepage">
+        <span class="brand-mark">▲</span>
+        <span class="brand-bold">BEYOND</span>&nbsp;<span class="brand-light">HORIZONS</span>
+      </a>
+
+      <div class="dash-user-welcome">
+        <div class="user-avatar-circle" id="user-avatar" aria-hidden="true">U</div>
+        <span class="user-greeting-name" id="user-nav-name">Traveler</span>
+      </div>
+
+      <div class="dash-top-actions">
+        <button type="button" class="btn btn-gradient btn-sm" id="btn-open-create-modal">
+          <span>+ Create New Trip</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-logout" title="Sign out of your account">
+          <span>Sign Out ↗</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Welcome Section -->
+  <div class="dash-banner-wrap">
+    <div class="container">
+      <div class="dash-banner-card">
+        <div>
+          <h1 class="dash-banner-title">
+            Welcome back, <span id="welcome-user-name">Explorer</span>!
+          </h1>
+          <p class="dash-banner-sub">
+            Your next adventure is waiting. Keep your travel plans organized and up to date.
+          </p>
+        </div>
+        <div>
+          <button type="button" class="btn btn-gradient" id="btn-banner-new-trip">
+            <span>+ Create New Trip</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Main Content -->
+  <main class="container" style="flex: 1; padding-bottom: 40px;">
+    <!-- Statistics Cards -->
+    <section class="stats-grid" aria-label="Trip Summary Statistics">
+      <!-- Total Trips -->
+      <article class="stat-box">
+        <div class="stat-icon" aria-hidden="true">✈️</div>
+        <div>
+          <div class="stat-label">Total Trips</div>
+          <div class="stat-number" id="stat-total-trips">0</div>
+        </div>
+      </article>
+
+      <!-- Upcoming Trips -->
+      <article class="stat-box stat-upcoming">
+        <div class="stat-icon" aria-hidden="true">🗓️</div>
+        <div>
+          <div class="stat-label">Upcoming Trips</div>
+          <div class="stat-number" id="stat-upcoming-trips">0</div>
+        </div>
+      </article>
+
+      <!-- Ongoing Trips -->
+      <article class="stat-box stat-ongoing">
+        <div class="stat-icon" aria-hidden="true">⏳</div>
+        <div>
+          <div class="stat-label">Ongoing Trips</div>
+          <div class="stat-number" id="stat-ongoing-trips">0</div>
+        </div>
+      </article>
+
+      <!-- Completed Trips -->
+      <article class="stat-box stat-completed">
+        <div class="stat-icon" aria-hidden="true">✓</div>
+        <div>
+          <div class="stat-label">Completed Trips</div>
+          <div class="stat-number" id="stat-completed-trips">0</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- My Trips Section -->
+    <section aria-labelledby="trips-heading">
+      <div class="trips-bar">
+        <h2 class="trips-title" id="trips-heading">My Trips</h2>
+
+        <div class="trips-filters">
+          <div class="search-wrap">
+            <span class="search-icon-btn" aria-hidden="true">⌕</span>
+            <input 
+              type="text" 
+              id="trip-search-input" 
+              class="form-input" 
+              placeholder="Search by destination or title…" 
+              aria-label="Filter trips by keyword"
+            >
+          </div>
+
+          <select id="trip-status-filter" class="select-filter" aria-label="Filter trips by status">
+            <option value="all">All Statuses</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+            <option value="planned">Planned</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Trips Grid (Filled dynamically via dashboard.js) -->
+      <div class="trips-grid" id="trips-grid-container" aria-live="polite">
+        <!-- Trip cards will be populated here -->
+      </div>
+
+      <!-- Empty State (Shown when 0 trips exist) -->
+      <div class="empty-box" id="empty-state-box" style="display: none;">
+        <div class="empty-icon" aria-hidden="true">🧭</div>
+        <h3 class="empty-title">No Trips Planned Yet</h3>
+        <p class="empty-desc">
+          You haven't added any journeys to your dashboard. Start exploring the world by planning your first adventure today!
+        </p>
+        <button type="button" class="btn btn-gradient" id="btn-empty-create-trip">
+          <span>+ Create Your First Trip</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+
+  <!-- Modal 1: Create Trip Modal -->
+  <div class="modal-backdrop" id="modal-create-trip" role="dialog" aria-modal="true" aria-labelledby="create-modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title" id="create-modal-title">Plan a New Journey</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="modal-create-trip" aria-label="Close dialog">✕</button>
+      </div>
+      <form id="create-trip-form" novalidate>
+        <div class="modal-body">
+          <div class="form-message-box" id="create-trip-alert" role="alert"></div>
+
+          <div class="form-group">
+            <label for="create-title" class="form-label">Trip Title *</label>
+            <input type="text" id="create-title" class="form-input" placeholder="e.g. Summer in Santorini" required maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label for="create-destination" class="form-label">Destination *</label>
+            <input type="text" id="create-destination" class="form-input" placeholder="e.g. Santorini, Greece" required maxlength="120">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="create-start-date" class="form-label">Start Date *</label>
+              <input type="date" id="create-start-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="create-end-date" class="form-label">End Date *</label>
+              <input type="date" id="create-end-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="create-budget" class="form-label">Budget ($ USD) *</label>
+              <input type="number" id="create-budget" class="form-input" placeholder="e.g. 1500" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="create-travelers" class="form-label">Travelers Count *</label>
+              <input type="number" id="create-travelers" class="form-input" value="1" min="1" max="99" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="create-notes" class="form-label">Notes &amp; Itinerary</label>
+            <textarea id="create-notes" class="form-input" rows="3" placeholder="Hotel reservations, flight codes, packing list, or planned activities…" maxlength="2000"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-create-trip">Cancel</button>
+          <button type="submit" class="btn btn-gradient" id="btn-save-create-trip">
+            <span>Save Journey</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit Trip Modal -->
+  <div class="modal-backdrop" id="modal-edit-trip" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title" id="edit-modal-title">Edit Trip Details</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="modal-edit-trip" aria-label="Close dialog">✕</button>
+      </div>
+      <form id="edit-trip-form" novalidate>
+        <input type="hidden" id="edit-trip-id">
+        <div class="modal-body">
+          <div class="form-message-box" id="edit-trip-alert" role="alert"></div>
+
+          <div class="form-group">
+            <label for="edit-title" class="form-label">Trip Title *</label>
+            <input type="text" id="edit-title" class="form-input" required maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label for="edit-destination" class="form-label">Destination *</label>
+            <input type="text" id="edit-destination" class="form-input" required maxlength="120">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-start-date" class="form-label">Start Date *</label>
+              <input type="date" id="edit-start-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-end-date" class="form-label">End Date *</label>
+              <input type="date" id="edit-end-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-budget" class="form-label">Budget ($ USD) *</label>
+              <input type="number" id="edit-budget" class="form-input" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-travelers" class="form-label">Travelers Count *</label>
+              <input type="number" id="edit-travelers" class="form-input" min="1" max="99" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="edit-notes" class="form-label">Notes &amp; Itinerary</label>
+            <textarea id="edit-notes" class="form-input" rows="3" maxlength="2000"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-edit-trip">Cancel</button>
+          <button type="submit" class="btn btn-gradient" id="btn-save-edit-trip">
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: View Trip Details Modal -->
+  <div class="modal-backdrop" id="modal-view-trip" role="dialog" aria-modal="true" aria-labelledby="view-modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title" id="view-modal-title">Trip Overview</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="modal-view-trip" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="view-highlight">
+          <span class="status-pill" id="view-status-tag">Upcoming</span>
+          <span style="font-size: 0.88rem; color: var(--ink-muted);" id="view-duration-badge">7 Days</span>
+        </div>
+        <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--navy-darkest); margin-bottom: 4px;" id="view-trip-title">Santorini Voyage</h2>
+        <div style="font-size: 0.95rem; color: var(--blue-primary); font-weight: 700; margin-bottom: 18px;" id="view-trip-destination">📍 Santorini, Greece</div>
+
+        <div class="view-grid">
+          <div>
+            <small style="font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px;">Dates</small>
+            <strong style="color: var(--navy-darkest); font-size: 0.92rem;" id="view-trip-dates">Nov 10, 2026 – Nov 17, 2026</strong>
+          </div>
+          <div>
+            <small style="font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px;">Planned Budget</small>
+            <strong style="color: var(--navy-darkest); font-size: 0.92rem;" id="view-trip-budget">$2,400.00</strong>
+          </div>
+          <div>
+            <small style="font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px;">Travelers</small>
+            <strong style="color: var(--navy-darkest); font-size: 0.92rem;" id="view-trip-travelers">2 Explorers</strong>
+          </div>
+          <div>
+            <small style="font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px;">Trip ID</small>
+            <strong style="color: var(--ink-secondary); font-size: 0.82rem; font-family: monospace;" id="view-trip-id">#ID</strong>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Notes &amp; Itinerary Highlights</label>
+          <div class="view-notes" id="view-trip-notes">
+            No notes added for this trip.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-close-modal="modal-view-trip">Close</button>
+        <button type="button" class="btn btn-gradient btn-sm" id="btn-view-quick-edit">Edit Trip</button>
+        <button type="button" class="btn btn-danger btn-sm" id="btn-view-quick-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Delete Confirmation Modal -->
+  <div class="modal-backdrop" id="modal-delete-confirm" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <div class="modal-window" style="max-width: 440px;">
+      <div class="modal-header" style="background-color: var(--danger-bg);">
+        <h3 class="modal-title" id="delete-modal-title" style="color: var(--danger);">Confirm Deletion</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="modal-delete-confirm" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="delete-trip-id">
+        <p style="font-size: 0.92rem; color: var(--ink-primary); margin-bottom: 12px;">
+          Are you sure you want to delete <strong id="delete-trip-title-label">this trip</strong>?
+        </p>
+        <p style="font-size: 0.82rem; color: var(--danger);">
+          ⚠️ This action is permanent and cannot be undone. All saved itinerary notes and budget details for this trip will be removed.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-delete-confirm">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btn-confirm-delete-action">
+          <span>Delete Trip</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Toast Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="brand">
+        <span class="brand-mark">▲</span>
+        <span class="brand-bold">BEYOND</span>&nbsp;<span class="brand-light">HORIZONS</span>
+      </div>
+      <p>© 2026 Beyond Horizons · Smart Travel Management System</p>
+      <nav class="footer-nav" aria-label="Dashboard footer links">
+        <a href="/">Home</a>
+        <a href="#top">Back to top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
